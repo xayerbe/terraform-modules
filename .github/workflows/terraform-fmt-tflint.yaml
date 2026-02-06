@@ -106,18 +106,6 @@ jobs:
         run: |
           git config --global url."https://${{ secrets.GH_PAT }}@github.com/".insteadOf "https://github.com/"
 
-      - name: Configure AWS credentials (DevOps Account)
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: arn:aws:iam::##AccountID##:role/GitHub_actions_role
-          aws-region: ${{ env.AWS_REGION }}
-          role-session-name: GitHubActions-DevOps
-
-      - name: Verify DevOps Account Access
-        run: |
-          echo "Verifying access to DevOps account:"
-          aws sts get-caller-identity
-  
       - name: Set environment variable to lowercase
         shell: bash
         run: echo "env_name=$(echo ${{ (github.event_name == 'pull_request' && (github.event.pull_request.base.ref == 'main' && 'pro' || (github.event.pull_request.base.ref == 'pre' && 'pre' || (github.event.pull_request.base.ref == 'dev' && 'dev' || 'null')))) || 'null' }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
