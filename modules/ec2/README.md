@@ -96,4 +96,4 @@ module "ec2" {
 - If you pass `instance_profile_name`, the module will not create or modify IAM.
 - To use SSM, the AMI must include the SSM agent or install it via `user_data`.
 - `ami_lookup_mode="ssm"` uses AWS SSM public parameters (gp2). Use `ami_ssm_parameter_name` for a custom path.
-- If SSM parameters are not available in your region/partition, set `ami_lookup_mode="filter"` and optionally override owners/name filter.
+- If SSM parameters are not available in your region/partition, set `ami_lookup_mode="filter"` and optionally override owners/name filter. The default Ubuntu filter supports both `hvm-ssd` and `hvm-ssd-gp3`.

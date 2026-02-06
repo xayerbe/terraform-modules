@@ -16,9 +16,9 @@ locals {
   }
 
   ami_name_filters = {
-    "ubuntu-latest"       = "ubuntu/images/hvm-ssd/ubuntu-*-amd64-server-*"
-    "ubuntu-24.04"        = "ubuntu/images/hvm-ssd/ubuntu-noble-24.04-amd64-server-*"
-    "ubuntu-22.04"        = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
+    "ubuntu-latest"       = "ubuntu/images/hvm-ssd*/ubuntu-*-amd64-server-*"
+    "ubuntu-24.04"        = "ubuntu/images/hvm-ssd*/ubuntu-noble-24.04-amd64-server-*"
+    "ubuntu-22.04"        = "ubuntu/images/hvm-ssd*/ubuntu-jammy-22.04-amd64-server-*"
     "amazonlinux2-latest" = "amzn2-ami-hvm-*-x86_64-gp2"
   }
 
