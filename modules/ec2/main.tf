@@ -72,14 +72,14 @@ resource "aws_security_group_rule" "ingress" {
     for idx, rule in var.ingress_rules : idx => rule
   }
 
-  type              = "ingress"
-  security_group_id = aws_security_group.this.id
-  from_port         = each.value.from_port
-  to_port           = each.value.to_port
-  protocol          = each.value.protocol
-  cidr_blocks       = lookup(each.value, "cidr_blocks", null)
+  type                     = "ingress"
+  security_group_id        = aws_security_group.this.id
+  from_port                = each.value.from_port
+  to_port                  = each.value.to_port
+  protocol                 = each.value.protocol
+  cidr_blocks              = lookup(each.value, "cidr_blocks", null)
   source_security_group_id = lookup(each.value, "source_sg_id", null)
-  description       = lookup(each.value, "description", null)
+  description              = lookup(each.value, "description", null)
 }
 
 resource "aws_security_group_rule" "egress" {
@@ -87,14 +87,14 @@ resource "aws_security_group_rule" "egress" {
     for idx, rule in var.egress_rules : idx => rule
   }
 
-  type              = "egress"
-  security_group_id = aws_security_group.this.id
-  from_port         = each.value.from_port
-  to_port           = each.value.to_port
-  protocol          = each.value.protocol
-  cidr_blocks       = lookup(each.value, "cidr_blocks", null)
+  type                     = "egress"
+  security_group_id        = aws_security_group.this.id
+  from_port                = each.value.from_port
+  to_port                  = each.value.to_port
+  protocol                 = each.value.protocol
+  cidr_blocks              = lookup(each.value, "cidr_blocks", null)
   source_security_group_id = lookup(each.value, "source_sg_id", null)
-  description       = lookup(each.value, "description", null)
+  description              = lookup(each.value, "description", null)
 }
 
 data "aws_iam_policy_document" "assume_role" {

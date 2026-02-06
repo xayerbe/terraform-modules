@@ -84,12 +84,12 @@ variable "volume_kms_key_arn" {
 
 variable "ingress_rules" {
   type = list(object({
-    from_port     = number
-    to_port       = number
-    protocol      = string
-    cidr_blocks   = optional(list(string))
-    source_sg_id  = optional(string)
-    description   = optional(string)
+    from_port    = number
+    to_port      = number
+    protocol     = string
+    cidr_blocks  = optional(list(string))
+    source_sg_id = optional(string)
+    description  = optional(string)
   }))
   description = "Reglas de ingress para el SG."
   default     = []
@@ -108,12 +108,12 @@ variable "ingress_rules" {
 
 variable "egress_rules" {
   type = list(object({
-    from_port     = number
-    to_port       = number
-    protocol      = string
-    cidr_blocks   = optional(list(string))
-    source_sg_id  = optional(string)
-    description   = optional(string)
+    from_port    = number
+    to_port      = number
+    protocol     = string
+    cidr_blocks  = optional(list(string))
+    source_sg_id = optional(string)
+    description  = optional(string)
   }))
   description = "Reglas de egress para el SG."
   default = [
