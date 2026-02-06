@@ -53,6 +53,12 @@ variable "ami_lookup" {
   }
 }
 
+variable "ami_ssm_parameter_name" {
+  type        = string
+  description = "Nombre de parámetro SSM para AMI. Si se define, se usa en lugar de ami_lookup."
+  default     = null
+}
+
 variable "volume_sizes" {
   type        = list(number)
   description = "Tamaños de discos (GiB). El primero es root, los siguientes son adicionales."

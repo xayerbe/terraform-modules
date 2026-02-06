@@ -2,8 +2,8 @@ locals {
   is_spot = var.market_type == "spot"
 
   ami_ssm_parameters = {
-    "ubuntu-latest"       = "/aws/service/canonical/ubuntu/server/jammy/stable/current/amd64/hvm/ebs-gp2/ami-id"
-    "amazonlinux2-latest" = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
+    "ubuntu-latest"       = "/aws/service/canonical/ubuntu/server/jammy/stable/current/amd64/hvm/ebs-gp3/ami-id"
+    "amazonlinux2-latest" = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp3"
   }
 
   additional_volume_sizes = length(var.volume_sizes) > 1 ? slice(var.volume_sizes, 1, length(var.volume_sizes)) : []
@@ -19,7 +19,7 @@ data "aws_subnet" "selected" {
 
 data "aws_ssm_parameter" "selected" {
   count = var.ami_id == null ? 1 : 0
-  name  = local.ami_ssm_parameters[var.ami_lookup]
+  name  = var.ami_ssm_parameter_name != null ? var.ami_ssm_parameter_name : local.ami_ssm_parameters[var.ami_lookup]
 }
 
 resource "aws_kms_key" "volume" {

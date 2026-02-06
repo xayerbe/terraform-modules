@@ -63,6 +63,7 @@ module "ec2" {
 | `market_type` | `string` | `"on_demand"` | `on_demand` or `spot`. |
 | `ami_id` | `string` | `null` | Explicit AMI ID. |
 | `ami_lookup` | `string` | `"ubuntu-latest"` | AMI alias (resolved via SSM Parameter Store) when `ami_id` is null. |
+| `ami_ssm_parameter_name` | `string` | `null` | Override SSM parameter name for AMI lookup. |
 | `volume_sizes` | `list(number)` | `[]` | Disk sizes (GiB). The first is root. |
 | `volume_type` | `string` | `"gp3"` | EBS volume type. |
 | `volume_encrypted` | `bool` | `false` | Encrypt volumes. |
@@ -91,4 +92,4 @@ module "ec2" {
 
 - If you pass `instance_profile_name`, the module will not create or modify IAM.
 - To use SSM, the AMI must include the SSM agent or install it via `user_data`.
-- `ami_lookup` uses AWS SSM public parameters for latest AMI IDs.
+- `ami_lookup` uses AWS SSM public parameters for latest AMI IDs. Use `ami_ssm_parameter_name` if you need a custom path.
