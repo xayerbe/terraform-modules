@@ -62,7 +62,7 @@ module "ec2" {
 | `instance_type` | `string` | `"t3.micro"` | Instance type. |
 | `market_type` | `string` | `"on_demand"` | `on_demand` or `spot`. |
 | `ami_id` | `string` | `null` | Explicit AMI ID. |
-| `ami_lookup` | `string` | `"ubuntu-latest"` | AMI alias when `ami_id` is null (ubuntu-latest = 24.04). |
+| `ami_lookup` | `string` | `"ubuntu-latest"` | AMI alias when `ami_id` is null (ubuntu-latest uses a broad Ubuntu name filter). |
 | `ami_lookup_mode` | `string` | `"ssm"` | Lookup mode: `ssm` or `filter`. |
 | `ami_ssm_parameter_name` | `string` | `null` | Override SSM parameter name for AMI lookup (ssm mode). |
 | `ami_name_filter_override` | `string` | `null` | Override AMI name filter (filter mode). |
