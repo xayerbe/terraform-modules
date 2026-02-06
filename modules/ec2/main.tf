@@ -2,17 +2,23 @@ locals {
   is_spot = var.market_type == "spot"
 
   ami_ssm_parameters = {
-    "ubuntu-latest"       = "/aws/service/canonical/ubuntu/server/jammy/stable/current/amd64/hvm/ebs-gp2/ami-id"
+    "ubuntu-latest"       = "/aws/service/canonical/ubuntu/server/noble/stable/current/amd64/hvm/ebs-gp2/ami-id"
+    "ubuntu-24.04"        = "/aws/service/canonical/ubuntu/server/noble/stable/current/amd64/hvm/ebs-gp2/ami-id"
+    "ubuntu-22.04"        = "/aws/service/canonical/ubuntu/server/jammy/stable/current/amd64/hvm/ebs-gp2/ami-id"
     "amazonlinux2-latest" = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
   }
 
   ami_owners = {
     "ubuntu-latest"       = ["099720109477"]
+    "ubuntu-24.04"        = ["099720109477"]
+    "ubuntu-22.04"        = ["099720109477"]
     "amazonlinux2-latest" = ["137112412989"]
   }
 
   ami_name_filters = {
-    "ubuntu-latest"       = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
+    "ubuntu-latest"       = "ubuntu/images/hvm-ssd/ubuntu-noble-24.04-amd64-server-*"
+    "ubuntu-24.04"        = "ubuntu/images/hvm-ssd/ubuntu-noble-24.04-amd64-server-*"
+    "ubuntu-22.04"        = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
     "amazonlinux2-latest" = "amzn2-ami-hvm-*-x86_64-gp2"
   }
 
