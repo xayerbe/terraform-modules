@@ -1,19 +1,19 @@
 {
-    "name": "terraform",
+    "name": "terraform-modules",
     "version": "1.0.0",
     "description": "description",
     "main": "index.js",
     "repository": {
       "type": "git",
-      "url": "git+https://github.com/xayerbe/terraform.git"
+      "url": "git+https://github.com/xayerbe/terraform-modules.git"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "bugs": {
-      "url": "https://github.com/xayerbe/terraform/issues"
+      "url": "https://github.com/xayerbe/terraform-modules/issues"
     },
-    "homepage": "https://github.com/xayerbe/terraform#readme",
+    "homepage": "https://github.com/xayerbe/terraform-modules#readme",
     "devDependencies": {
       "@semantic-release/changelog": "^6.0.3",
       "@semantic-release/commit-analyzer": "^13.0.1",
