@@ -48,8 +48,8 @@ variable "ami_lookup" {
   default     = "ubuntu-latest"
 
   validation {
-    condition     = contains(["ubuntu-latest", "ubuntu-22.04", "ubuntu-24.04", "amazonlinux2-latest"], var.ami_lookup)
-    error_message = "ami_lookup debe ser ubuntu-latest, ubuntu-22.04, ubuntu-24.04 o amazonlinux2-latest."
+    condition     = contains(["ubuntu-latest", "ubuntu-24.04", "ubuntu-22.04", "ubuntu-16.04", "amazonlinux2-latest"], var.ami_lookup)
+    error_message = "ami_lookup debe ser ubuntu-latest, ubuntu-24.04, ubuntu-22.04, ubuntu-16.04 o amazonlinux2-latest."
   }
 }
 

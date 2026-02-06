@@ -62,11 +62,11 @@ module "ec2" {
 | `instance_type` | `string` | `"t3.micro"` | Instance type. |
 | `market_type` | `string` | `"on_demand"` | `on_demand` or `spot`. |
 | `ami_id` | `string` | `null` | Explicit AMI ID. |
-| `ami_lookup` | `string` | `"ubuntu-latest"` | AMI alias when `ami_id` is null (ubuntu-latest = 24.04). |
+| `ami_lookup` | `string` | `"ubuntu-latest"` | AMI alias when `ami_id` is null (ubuntu-latest uses a broad Ubuntu name filter). Supports ubuntu-24.04, ubuntu-22.04, ubuntu-16.04. |
 | `ami_lookup_mode` | `string` | `"ssm"` | Lookup mode: `ssm` or `filter`. |
 | `ami_ssm_parameter_name` | `string` | `null` | Override SSM parameter name for AMI lookup (ssm mode). |
 | `ami_name_filter_override` | `string` | `null` | Override AMI name filter (filter mode). |
-| `ami_owners_override` | `list(string)` | `[]` | Override AMI owners (filter mode). |
+| `ami_owners_override` | `list(string)` | `[]` | Override AMI owners (filter mode). If empty, no owners filter is applied. |
 | `volume_sizes` | `list(number)` | `[]` | Disk sizes (GiB). The first is root. |
 | `volume_type` | `string` | `"gp3"` | EBS volume type. |
 | `volume_encrypted` | `bool` | `false` | Encrypt volumes. |
@@ -95,5 +95,5 @@ module "ec2" {
 
 - If you pass `instance_profile_name`, the module will not create or modify IAM.
 - To use SSM, the AMI must include the SSM agent or install it via `user_data`.
-- `ami_lookup_mode="ssm"` uses AWS SSM public parameters (gp2). Use `ami_ssm_parameter_name` for a custom path.
-- If SSM parameters are not available in your region/partition, set `ami_lookup_mode="filter"` and optionally override owners/name filter.
+- `ami_lookup_mode="ssm"` uses AWS SSM public parameters. Para Ubuntu 24.04 (noble) el path es `/aws/service/canonical/ubuntu/server/noble/stable/current/amd64/hvm/ebs-gp3/ami-id`.
+- If SSM parameters are not available in your region/partition, set `ami_lookup_mode="filter"` and optionally override owners/name filter. The default Ubuntu filter supports both `hvm-ssd` and `hvm-ssd-gp3`.
