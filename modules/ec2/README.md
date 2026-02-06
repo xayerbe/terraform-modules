@@ -92,4 +92,4 @@ module "ec2" {
 
 - If you pass `instance_profile_name`, the module will not create or modify IAM.
 - To use SSM, the AMI must include the SSM agent or install it via `user_data`.
-- `ami_lookup` uses AWS SSM public parameters for latest AMI IDs. Use `ami_ssm_parameter_name` if you need a custom path.
+- `ami_lookup` uses AWS SSM public parameters for latest AMI IDs (gp2). Use `ami_ssm_parameter_name` if you need a custom path (for example, gp3).
