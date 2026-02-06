@@ -40,7 +40,7 @@ output "private_route_table_ids" {
 
 output "route_table_ids" {
   description = "All route table IDs."
-  value       = concat(
+  value = concat(
     [for rt in aws_route_table.public : rt.id],
     [for rt in aws_route_table.private : rt.id]
   )
