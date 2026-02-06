@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/xayerbe/terraform-modules/compare/v1.0.0...v1.0.1) (2026-02-06)
+
+
+### Bug Fixes
+
+* **cicd:** change repo name ([6061827](https://github.com/xayerbe/terraform-modules/commit/606182729ac2df9d7f1a237bb1940c5fac35aa71))
+
 # 1.0.0 (2026-02-06)
 
 
