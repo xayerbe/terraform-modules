@@ -53,10 +53,33 @@ variable "ami_lookup" {
   }
 }
 
+variable "ami_lookup_mode" {
+  type        = string
+  description = "Modo de búsqueda de AMI: ssm o filter."
+  default     = "ssm"
+
+  validation {
+    condition     = contains(["ssm", "filter"], var.ami_lookup_mode)
+    error_message = "ami_lookup_mode debe ser ssm o filter."
+  }
+}
+
 variable "ami_ssm_parameter_name" {
   type        = string
   description = "Nombre de parámetro SSM para AMI. Si se define, se usa en lugar de ami_lookup."
   default     = null
+}
+
+variable "ami_name_filter_override" {
+  type        = string
+  description = "Override del filtro name para búsqueda por AMI (modo filter)."
+  default     = null
+}
+
+variable "ami_owners_override" {
+  type        = list(string)
+  description = "Override de owners para búsqueda por AMI (modo filter)."
+  default     = []
 }
 
 variable "volume_sizes" {

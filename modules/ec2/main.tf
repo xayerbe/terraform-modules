@@ -6,11 +6,24 @@ locals {
     "amazonlinux2-latest" = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
   }
 
+  ami_owners = {
+    "ubuntu-latest"       = ["099720109477"]
+    "amazonlinux2-latest" = ["137112412989"]
+  }
+
+  ami_name_filters = {
+    "ubuntu-latest"       = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"
+    "amazonlinux2-latest" = "amzn2-ami-hvm-*-x86_64-gp2"
+  }
+
   additional_volume_sizes = length(var.volume_sizes) > 1 ? slice(var.volume_sizes, 1, length(var.volume_sizes)) : []
   device_letters          = ["f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p"]
 
   create_kms = var.volume_encrypted && var.volume_kms_key_arn == null
   kms_arn    = var.volume_kms_key_arn != null ? var.volume_kms_key_arn : (local.create_kms ? aws_kms_key.volume[0].arn : null)
+
+  use_ssm    = var.ami_id == null && var.ami_lookup_mode == "ssm"
+  use_filter = var.ami_id == null && var.ami_lookup_mode == "filter"
 }
 
 data "aws_subnet" "selected" {
@@ -18,8 +31,24 @@ data "aws_subnet" "selected" {
 }
 
 data "aws_ssm_parameter" "selected" {
-  count = var.ami_id == null ? 1 : 0
+  count = local.use_ssm ? 1 : 0
   name  = var.ami_ssm_parameter_name != null ? var.ami_ssm_parameter_name : local.ami_ssm_parameters[var.ami_lookup]
+}
+
+data "aws_ami" "selected" {
+  count       = local.use_filter ? 1 : 0
+  most_recent = true
+  owners      = length(var.ami_owners_override) > 0 ? var.ami_owners_override : local.ami_owners[var.ami_lookup]
+
+  filter {
+    name   = "name"
+    values = [coalesce(var.ami_name_filter_override, local.ami_name_filters[var.ami_lookup])]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }
 
 resource "aws_kms_key" "volume" {
@@ -119,8 +148,10 @@ resource "aws_iam_instance_profile" "this" {
 }
 
 resource "aws_instance" "this" {
-  count         = var.instance_count
-  ami           = var.ami_id != null ? var.ami_id : data.aws_ssm_parameter.selected[0].value
+  count = var.instance_count
+  ami = var.ami_id != null ? var.ami_id : (
+    var.ami_lookup_mode == "ssm" ? data.aws_ssm_parameter.selected[0].value : data.aws_ami.selected[0].id
+  )
   instance_type = var.instance_type
   subnet_id     = var.subnet_id
 
